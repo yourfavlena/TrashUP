@@ -1,0 +1,6 @@
+Flask
+Flask_SQLAlchemy
+Pillow
+opencv-python
+matplotlib
+python-dotenv 
