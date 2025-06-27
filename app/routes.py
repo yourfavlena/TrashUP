@@ -87,6 +87,6 @@ from flask import render_template
 def accueil():
     return render_template('accueil.html')
 
-@app.route('/profil')
+@app.route('/map')
 def profil():
-    return render_template('profil.html')
+    return render_template('map.html')
