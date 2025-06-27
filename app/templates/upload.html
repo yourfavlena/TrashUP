@@ -20,6 +20,13 @@
                 <label for="longitude" class="form-label">Longitude (optionnel)</label>
                 <input type="number" step="any" name="longitude" class="form-control" id="longitude">
             </div>
+            /////////////////
+            //ajouter ici une condition pour utiliser directement la localisation de l'appareil ou bien saisir manuellement la localisation de la poubelle
+            ////////////////
+            <div class="mb-3">
+                <label for="localisation" class="form-label">Localisation (requis)</label>
+                <input type="text" name="localisation" class="form-control" id="localisation" placeholder="Ex: Rue de le République" required>
+            </div>
             <button type="submit" class="btn btn-success">Envoyer</button>
         </form>
         {% if filename %}

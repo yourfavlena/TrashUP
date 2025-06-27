@@ -20,6 +20,7 @@
             <tr><th>Histogramme RVB</th><td>{{ img.histogram|length }} valeurs</td></tr>
             <tr><th>Histogramme de luminance</th><td>{{ img.luminance_hist }}</td></tr>
             <tr><th>Contours (edges)</th><td>{{ img.edges|length }} valeurs</td></tr>
+            <tr><th>Localisation</th><td>{{ img.localisation or 'Non renseignée' }}</td></tr>
         </table>
         <a href="/images" class="btn btn-secondary">Retour à la liste</a>
         <a href="/dashboard" class="btn btn-outline-primary">Dashboard</a>

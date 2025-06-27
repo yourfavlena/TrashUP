@@ -81,3 +81,12 @@ def images():
 def image_detail(image_id):
     img = TrashImage.query.get_or_404(image_id)
     return render_template('image_detail.html', img=img) 
+from flask import render_template
+
+@app.route('/accueil')
+def accueil():
+    return render_template('accueil.html')
+
+@app.route('/profil')
+def profil():
+    return render_template('profil.html')
