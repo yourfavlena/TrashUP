@@ -1,4 +1,4 @@
-from flask import render_template, request, redirect, url_for, flash
+from flask import render_template, request, redirect, url_for, flash, session
 from app import app, db
 from app.models import TrashImage
 from app.feature_extractor import extract_features
@@ -87,6 +87,19 @@ from flask import render_template
 def accueil():
     return render_template('accueil.html')
 
-@app.route('/map')
-def profil():
+@app.route('/map', methods=['GET', 'POST'])
+def map():
+    if request.method == 'POST':
+        # Traitement des données du formulaire
+        pass
     return render_template('map.html')
+
+@app.route('/dashboard')
+def dashboard():
+    return render_template('dashboard.html')
+
+@app.route('/set_language/<lang>')
+def set_language(lang):
+    if lang in ['fr', 'en']:
+        session['lang'] = lang
+    return redirect(request.referrer or url_for('index'))

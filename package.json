@@ -1,0 +1,17 @@
+{
+  "name": "trashup",
+  "version": "1.0.0",
+  "description": "Gestion des dépendances JS pour TrashUP",
+  "main": "index.js",
+  "scripts": {
+    "start": "parcel src/dashboard.js",
+    "build": "parcel build src/dashboard.js"
+  },
+  "devDependencies": {
+    "parcel": "^2.6.2"
+  },
+  "dependencies": {
+    "@cubejs-client/core": "^0.31.0",
+    "chart.js": "^4.0.0"
+  }
+}

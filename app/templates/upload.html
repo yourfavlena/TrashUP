@@ -1,5 +1,5 @@
 <!DOCTYPE html>
-<html lang="fr">
+<html >
 <head>
     <meta charset="UTF-8">
     <title>Upload Image - TrashUP</title>
@@ -21,12 +21,13 @@
                 <label for="longitude" class="form-label">Longitude (optionnel)</label>
                 <input type="number" step="any" name="longitude" class="form-control" id="longitude">
             </div>
-            /////////////////
-            //ajouter ici une condition pour utiliser directement la localisation de l'appareil ou bien saisir manuellement la localisation de la poubelle
-            ////////////////
+            <div class="mb-3">
+                <button type="button" class="btn btn-secondary mb-2" onclick="getLocation()">Utiliser ma localisation</button>
+                <div id="location-message" class="text-info"></div>
+            </div>
             <div class="mb-3">
                 <label for="localisation" class="form-label">Localisation (requis)</label>
-                <input type="text" name="localisation" class="form-control" id="localisation" placeholder="Ex: Rue de le République" required>
+                <input type="text" name="localisation" class="form-control" id="localisation" placeholder="Ex: Rue de la République" required>
             </div>
             <button type="submit" class="btn btn-success">Envoyer</button>
         </form>
@@ -45,5 +46,22 @@
         {% endif %}
     </div>
     {% include 'Footer.html' %}
+    <script>
+        function getLocation() {
+            const message = document.getElementById('location-message');
+            if (navigator.geolocation) {
+                message.textContent = 'Recherche de votre position...';
+                navigator.geolocation.getCurrentPosition(function(position) {
+                    document.getElementById('latitude').value = position.coords.latitude;
+                    document.getElementById('longitude').value = position.coords.longitude;
+                    message.textContent = 'Position détectée !';
+                }, function(error) {
+                    message.textContent = "Impossible d'obtenir la position : " + error.message + ". Veuillez entrer manuellement les coordonnées.";
+                });
+            } else {
+                message.textContent = "La géolocalisation n'est pas supportée par ce navigateur.";
+            }
+        }
+    </script>
 </body>
-</html> 
+</html>

@@ -1,5 +1,5 @@
 <!DOCTYPE html>
-<html lang="fr">
+<html >
 <head>
     <meta charset="UTF-8">
     <title>Carte des poubelles - TrashUP</title>
@@ -7,11 +7,11 @@
     <link rel="stylesheet" href="https://unpkg.com/leaflet/dist/leaflet.css" />
     <style>#map { height: 600px; }</style>
 </head>
+{% include 'Header.html' %}
 <body>
     <div class="container mt-5">
         <h2>Carte des poubelles géolocalisées</h2>
         <div id="map"></div>
-        <a href="/dashboard" class="btn btn-secondary mt-3">Retour au dashboard</a>
     </div>
     <script src="https://unpkg.com/leaflet/dist/leaflet.js"></script>
     <script>
@@ -26,4 +26,5 @@
         {% endfor %}
     </script>
 </body>
+{% include 'Footer.html' %}
 </html> 
