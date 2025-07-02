@@ -57,4 +57,8 @@ TrashUP/
 - Documentation Green IT et évaluation des risques
 
 ## Auteurs
-- À compléter 
+- Anil BRAUN
+- Wassim DJENANE
+- Sean KAMGAING
+- Jeremy BARDET
+- Lena MAKRI
