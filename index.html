@@ -1,0 +1,24 @@
+{% extends 'base.html' %}
+{% block title %}TrashUP - Accueil{% endblock %}
+
+{% block explanation %}
+<div class="mb-4">
+  <h1 class="display-4 fw-bold text-success mb-3">Bienvenue sur TrashUP</h1>
+  <p class="lead">TrashUP est une plateforme intelligente de suivi des poubelles publiques, conçue pour prévenir les dépôts sauvages et améliorer la gestion des déchets urbains.</p>
+  <ul class="mb-2">
+    <li>Visualisez et annotez l'état des poubelles (pleine/vide) à partir de photos.</li>
+    <li>Consultez des statistiques et une carte interactive pour un suivi efficace.</li>
+    <li>Participez à une démarche Green IT et citoyenne.</li>
+  </ul>
+  <p class="text-muted">Ce projet a été réalisé dans le cadre du Master Green IT.</p>
+</div>
+{% endblock %}
+
+{% block content %}
+<div class="d-flex flex-column align-items-center gap-3">
+  <a href="{{ url_for('upload') }}" class="btn btn-primary btn-lg">Uploader une image</a>
+  <a href="{{ url_for('images') }}" class="btn btn-secondary btn-lg">Voir les images</a>
+  <a href="{{ url_for('dashboard') }}" class="btn btn-info btn-lg">Dashboard</a>
+  <a href="{{ url_for('map') }}" class="btn btn-success btn-lg">Carte interactive</a>
+</div>
+{% endblock %}
