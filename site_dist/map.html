@@ -47,8 +47,18 @@
 </header>
     <main class="container">
         <div class="mb-4">
-  <h2 class="fw-bold text-info mb-2">Carte interactive</h2>
-  <p class="mb-0">Visualisez la localisation des poubelles annotées sur une carte interactive. Zoomez sur les points pour voir les détails et les photos associées. Cette vue permet d'identifier les zones à surveiller et d'optimiser les tournées de collecte.</p>
+  <h1 class="mb-4" style="color:#00cfff;">Carte interactive</h1>
+  <p>Visualisez la localisation des poubelles annotées sur une carte interactive. Zoomez sur les points pour voir les détails et les photos associées. Cette vue permet d'identifier les zones à surveiller et d'optimiser les tournées de collecte.</p>
+  <!-- Carte Leaflet -->
+  <link rel="stylesheet" href="https://unpkg.com/leaflet@1.9.4/dist/leaflet.css" integrity="sha256-sA+e2H1LG2Q6F2zj4l1Q1h6U8p2/3p3p6ZtP7g1jz14=" crossorigin=""/>
+  <div id="map" style="height: 500px; width: 100%; margin: 30px 0; border-radius: 16px; box-shadow: 0 2px 8px rgba(0,0,0,0.08);"></div>
+  <script src="https://unpkg.com/leaflet@1.9.4/dist/leaflet.js" integrity="sha256-o9N1jRVv6Gk6f+g1k6F1Q1h6U8p2/3p3p6ZtP7g1jz14=" crossorigin=""></script>
+  <script>
+    var map = L.map('map').setView([48.8566, 2.3522], 13); // Paris centre
+    L.tileLayer('https://{s}.tile.openstreetmap.org/{z}/{x}/{y}.png', {
+      attribution: '&copy; <a href="https://www.openstreetmap.org/copyright">OpenStreetMap</a> contributors'
+    }).addTo(map);
+  </script>
 </div>
         <div class="mb-4">
   <div id="map" style="height: 500px; border-radius: 12px; margin-bottom: 20px;"></div>
