@@ -100,6 +100,5 @@ def dashboard():
 
 @app.route('/set_language/<lang>')
 def set_language(lang):
-    if lang in ['fr', 'en']:
-        session['lang'] = lang
+    session['lang'] = lang
     return redirect(request.referrer or url_for('index'))

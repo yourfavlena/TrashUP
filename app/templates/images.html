@@ -1,44 +1,47 @@
-<!DOCTYPE html>
-<html >
-<head>
-    <meta charset="UTF-8">
-    <title>Images uploadées - TrashUP</title>
-    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/css/bootstrap.min.css">
-</head>
-{% include 'Header.html' %}
-<body>
-    <div class="container mt-5">
-        <h2>Liste des images uploadées</h2>
-        <a href="/upload" class="btn btn-primary mb-3">Uploader une nouvelle image</a>
-        <table class="table table-bordered">
-            <thead>
-                <tr>
-                    <th>Image</th>
-                    <th>Date</th>
-                    <th>Annotation</th>
-                    <th>Actions</th>
-                </tr>
-            </thead>
-            <tbody>
-                {% for img in images %}
-                <tr>
-                    <td><img src="{{ url_for('static', filename='uploads/' + img.filename) }}" style="max-width:100px;"></td>
-                    <td>{{ img.upload_date.strftime('%Y-%m-%d %H:%M') }}</td>
-                    <td>{{ img.annotation or 'Non annotée' }}</td>
-                    <td>
-                        <form method="POST" action="/upload">
-                            <input type="hidden" name="filename" value="{{ img.filename }}">
-                            <button name="annotation" value="pleine" class="btn btn-danger btn-sm">Pleine</button>
-                            <button name="annotation" value="vide" class="btn btn-info btn-sm">Vide</button>
-                        </form>
-                        <a href="{{ url_for('image_detail', image_id=img.id) }}" class="btn btn-outline-secondary btn-sm">Détail</a>
-                    </td>
-                </tr>
-                {% endfor %}
-            </tbody>
-        </table>
-        <a href="/" class="btn btn-secondary mt-3">Retour à l'accueil</a>
-    </div>
-</body>
-{% include 'Footer.html' %}
-</html> 
+{% extends 'base.html' %}
+{% block title %}Images uploadées - TrashUP{% endblock %}
+
+{% block explanation %}
+<div class="mb-4">
+  <h2 class="fw-bold text-primary mb-2">Liste des images uploadées</h2>
+  <p class="mb-0">Retrouvez ici toutes les photos de poubelles envoyées sur la plateforme. Vous pouvez annoter chaque image (pleine/vide), consulter les détails, et enrichir la base pour un meilleur suivi des déchets publics.</p>
+</div>
+{% endblock %}
+
+{% block content %}
+<div class="d-flex justify-content-end mb-3">
+  <a href="{{ url_for('upload') }}" class="btn btn-primary">Uploader une nouvelle image</a>
+</div>
+<div class="table-responsive">
+  <table class="table table-bordered align-middle shadow-sm">
+    <thead class="table-light">
+      <tr>
+        <th>Image</th>
+        <th>Date</th>
+        <th>Annotation</th>
+        <th>Actions</th>
+      </tr>
+    </thead>
+    <tbody>
+      {% for img in images %}
+      <tr>
+        <td><img src="{{ url_for('static', filename='uploads/' + img.filename) }}" style="max-width:100px;"></td>
+        <td>{{ img.upload_date.strftime('%Y-%m-%d %H:%M') }}</td>
+        <td>{{ img.annotation if img.annotation else 'Non annotée' }}</td>
+        <td>
+          <form method="POST" action="/upload" style="display:inline-block;">
+            <input type="hidden" name="filename" value="{{ img.filename }}">
+            <button name="annotation" value="pleine" class="btn btn-danger btn-sm">Pleine</button>
+            <button name="annotation" value="vide" class="btn btn-info btn-sm">Vide</button>
+          </form>
+          <a href="{{ url_for('image_detail', image_id=img.id) }}" class="btn btn-outline-secondary btn-sm">Détail</a>
+        </td>
+      </tr>
+      {% endfor %}
+    </tbody>
+  </table>
+</div>
+<div class="d-flex justify-content-center mt-4">
+  <a href="/" class="btn btn-secondary">Retour à l'accueil</a>
+</div>
+{% endblock %} 

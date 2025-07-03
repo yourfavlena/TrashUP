@@ -1,24 +1,49 @@
-<!DOCTYPE html>
-<html >
-<head>
-    <meta charset="UTF-8">
-    <title>Dashboard - TrashUP</title>
-    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/css/bootstrap.min.css">
-</head>
-{% include 'Header.html' %}
-<body>
-    <div class="container mt-5">
-        <h2>Dashboard TrashUP</h2>
-        <p>Nombre total d'images uploadées : <strong>{{ total_images }}</strong></p>
-        <p>Poubelles pleines : <strong>{{ pleines }} ({{ pleines_percentage }}%)</strong> | Poubelles vides : <strong>{{ vides }} ({{ vides_percentage }}%)</strong></p>
-        <div id="charts" class="mb-4">
-            <h4>Répartition des annotations</h4>
-            <img src="data:image/png;base64,{{ img_base64 }}" alt="Graphique annotations" class="img-fluid" style="max-width:400px;">
+{% extends 'base.html' %}
+{% block title %}Dashboard - TrashUP{% endblock %}
+
+{% block explanation %}
+<div class="mb-4">
+  <h2 class="fw-bold text-success mb-2">Tableau de bord</h2>
+  <p class="mb-0">Visualisez ici les statistiques globales de la plateforme : nombre total d'images, répartition des annotations (pleine/vide), et graphique de synthèse. Utilisez ces données pour suivre l'évolution des dépôts et optimiser la gestion des déchets.</p>
+</div>
+{% endblock %}
+
+{% block content %}
+<div class="mb-4">
+  <div class="row mb-3">
+    <div class="col-md-4">
+      <div class="card shadow-sm mb-3">
+        <div class="card-body text-center">
+          <h5 class="card-title">Total images</h5>
+          <p class="display-6 fw-bold text-primary">{{ total_images }}</p>
         </div>
-        <a href="/images" class="btn btn-primary">Voir les images</a>
-        <a href="/map" class="btn btn-success">Voir la carte</a>
-        <a href="/" class="btn btn-secondary mt-3">Retour à l'accueil</a>
+      </div>
     </div>
-</body>
-{% include 'Footer.html' %}
-</html> 
+    <div class="col-md-4">
+      <div class="card shadow-sm mb-3">
+        <div class="card-body text-center">
+          <h5 class="card-title">Images pleines</h5>
+          <p class="display-6 fw-bold text-danger">{{ pleines }}</p>
+        </div>
+      </div>
+    </div>
+    <div class="col-md-4">
+      <div class="card shadow-sm mb-3">
+        <div class="card-body text-center">
+          <h5 class="card-title">Images vides</h5>
+          <p class="display-6 fw-bold text-info">{{ vides }}</p>
+        </div>
+      </div>
+    </div>
+  </div>
+  <div class="mb-4 text-center">
+    <h4 class="mb-3">Répartition des annotations</h4>
+    <img src="data:image/png;base64,{{ img_base64 }}" alt="Graphique annotations" class="img-fluid rounded shadow" style="max-width: 400px;">
+  </div>
+  <div class="d-flex flex-wrap gap-2 justify-content-center mt-4">
+    <a href="/images" class="btn btn-primary">Voir les images</a>
+    <a href="/map" class="btn btn-success">Voir la carte</a>
+    <a href="/" class="btn btn-secondary">Retour à l'accueil</a>
+  </div>
+</div>
+{% endblock %} 

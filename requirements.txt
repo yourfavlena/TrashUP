@@ -1,6 +1,7 @@
-Flask
+Flask==2.3.3
 Flask_SQLAlchemy
 Pillow
 opencv-python
 matplotlib
-python-dotenv 
+python-dotenv
+Flask-Babel==3.1.0 
