@@ -1,0 +1,5 @@
+# Autoriser l'accès aux fichiers statiques
+Options +Indexes
+DirectoryIndex index.html
+# Désactiver l'exécution de scripts
+RemoveHandler .py .pl .php .cgi 
