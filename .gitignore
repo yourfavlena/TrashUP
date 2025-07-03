@@ -1,0 +1,37 @@
+# Environnements virtuels
+.venv/
+venv/
+
+# Dépendances Node
+node_modules/
+
+# Fichiers/dossiers de données volumineux
+Data/
+instance/
+uploads/
+img/
+assets/
+
+# Fichiers images à la racine ou dans le projet
+*.jpg
+*.jpeg
+*.png
+*.gif
+*.svg
+*.bmp
+*.tiff
+*.ico
+
+# Fichiers temporaires et systèmes
+.DS_Store
+Thumbs.db
+
+# Fichiers de logs
+*.log
+
+# Fichiers de configuration sensibles
+.env
+.env.*
+
+# Fichiers de déploiement
+ftp-deploy-sync-state.json 
