@@ -61,7 +61,8 @@ def upload():
                 luminance_hist=features.get('luminance_hist'),
                 annotation=auto_label,
                 latitude=latitude,
-                longitude=longitude
+                longitude=longitude,
+                localisation=request.form.get('localisation')
             )
             db.session.add(img)
             db.session.commit()
@@ -89,14 +90,15 @@ def accueil():
 
 @app.route('/map', methods=['GET', 'POST'])
 def map():
-    if request.method == 'POST':
-        # Traitement des données du formulaire
-        pass
-    return render_template('map.html')
+    images = TrashImage.query.all()
+    return render_template('map.html', images=images)
 
 @app.route('/dashboard')
 def dashboard():
-    return render_template('dashboard.html')
+    total_images = TrashImage.query.count()
+    pleines = TrashImage.query.filter_by(annotation='pleine').count()
+    vides = TrashImage.query.filter_by(annotation='vide').count()
+    return render_template('dashboard.html', total_images=total_images, pleines=pleines, vides=vides)
 
 @app.route('/set_language/<lang>')
 def set_language(lang):

@@ -16,7 +16,7 @@ class TrashImage(db.Model):
     contrast = db.Column(db.Float)
     edges = db.Column(db.PickleType)
     luminance_hist = db.Column(db.PickleType)
-    location = db.Column(db.String(120))
+    localisation = db.Column(db.String(120))
     latitude = db.Column(db.Float)
     longitude = db.Column(db.Float)
-    # Ajouter d'autres champs si besoin 
+    # Ajouter d'autres champs si besoin

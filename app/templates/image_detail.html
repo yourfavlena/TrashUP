@@ -2,7 +2,7 @@
 <html lang="fr">
 <head>
     <meta charset="UTF-8">
-    <title>Détail image - TrashUP</title>
+    <title>{% block title %}Détail image - TrashUP{% endblock %}</title>
     <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/css/bootstrap.min.css">
     <style>
         html, body { height: 100%; }
@@ -12,27 +12,6 @@
             display: flex;
             flex-direction: column;
             align-items: center;
-        }
-        .header {
-            width: 100vw;
-            background: #388e4a;
-            color: #fff;
-            padding: 12px 0 8px 0;
-            text-align: right;
-            position: fixed;
-            top: 0;
-            left: 0;
-            z-index: 10;
-        }
-        .header a {
-            color: #fff;
-            margin: 0 18px;
-            font-weight: 600;
-            text-decoration: none;
-            font-size: 1.1rem;
-        }
-        .header a.active {
-            text-decoration: underline;
         }
         .center-box {
             background: #fff;
@@ -67,28 +46,33 @@
     </style>
 </head>
 <body>
-    <div class="header">
-        <!-- Suppression des liens de langue -->
-    </div>
-    <div class="center-box">
-        <h2>Détail de l'image</h2>
-        <img src="{{ url_for('static', filename='uploads/' + img.filename) }}" class="img-fluid mb-3" style="max-width:300px;">
-        <table class="table table-bordered">
+    {% extends 'base.html' %}
+    {% block content %}
+    <div class="row justify-content-center">
+      <div class="col-md-8">
+        <div class="bg-white p-4 rounded shadow-sm mt-4">
+          <h2 class="mb-4">Détail de l'image</h2>
+          <img src="{{ url_for('static', filename='uploads/' + img.filename) }}" class="img-fluid mb-3" style="max-width:300px;">
+          <table class="table table-bordered">
             <tr><th>Nom du fichier</th><td>{{ img.filename }}</td></tr>
             <tr><th>Date d'upload</th><td>{{ img.upload_date.strftime('%Y-%m-%d %H:%M') }}</td></tr>
             <tr><th>Annotation</th><td>{{ img.annotation if img.annotation else 'Non annotée' }}</td></tr>
             <tr><th>Taille du fichier (octets)</th><td>{{ img.file_size }}</td></tr>
             <tr><th>Dimensions (px)</th><td>{{ img.width }} x {{ img.height }}</td></tr>
+            <tr><th>Latitude</th><td>{{ img.latitude if img.latitude else '-' }}</td></tr>
+            <tr><th>Longitude</th><td>{{ img.longitude if img.longitude else '-' }}</td></tr>
             <tr><th>Couleur moyenne (R, V, B)</th><td>{{ img.avg_red|round(1) }}, {{ img.avg_green|round(1) }}, {{ img.avg_blue|round(1) }}</td></tr>
             <tr><th>Contraste</th><td>{{ img.contrast }}</td></tr>
             <tr><th>Histogramme RVB</th><td>{{ img.histogram|length }} valeurs</td></tr>
             <tr><th>Histogramme de luminance</th><td>{{ img.luminance_hist }}</td></tr>
             <tr><th>Contours (edges)</th><td>{{ img.edges|length }} valeurs</td></tr>
-            <tr><th>Localisation</th><td>{{ img.localisation or 'Non renseignée' }}</td></tr>
-        </table>
-        <a href="/images" class="btn btn-secondary">Retour à la liste</a>
-        <a href="/dashboard" class="btn btn-outline-primary">Dashboard</a>
+            <tr><th>Localisation</th><td>{{ img.localisation }}</td></tr>
+          </table>
+          <a href="/images" class="btn btn-secondary">Retour à la liste</a>
+          <a href="/dashboard" class="btn btn-outline-primary">Dashboard</a>
+        </div>
+      </div>
     </div>
-    <div class="footer">© 2025 TrashUP. Tous droits réservés.</div>
+    {% endblock %}
 </body>
-</html> 
+</html>

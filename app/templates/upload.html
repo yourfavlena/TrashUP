@@ -18,21 +18,43 @@
       </div>
       <div class="mb-3 row">
         <div class="col-md-6">
-          <label for="latitude" class="form-label">Latitude (optionnel)</label>
+          <label for="latitude" class="form-label">Latitude (requis)</label>
           <input type="number" step="any" name="latitude" class="form-control" id="latitude">
         </div>
         <div class="col-md-6">
-          <label for="longitude" class="form-label">Longitude (optionnel)</label>
-          <input type="number" step="any" name="longitude" class="form-control" id="longitude">
+          <label for="longitude" class="form-label">Longitude (requis)</label>
+          <input type="number" step="any" name="longitude" class="form-control" id="longitude" required>
         </div>
       </div>
       <div class="mb-3">
-        <button type="button" class="btn btn-secondary mb-2" onclick="getLocation()">Utiliser ma localisation</button>
+        <button type="button" class="btn btn-info mb-2" onclick="getRoundedLocation()">Prendre ma localisation (arrondie à 20m)</button>
         <div id="location-message" class="text-info"></div>
       </div>
       <div class="mb-3">
-        <label for="localisation" class="form-label">Localisation (requis)</label>
-        <input type="text" name="localisation" class="form-control" id="localisation" placeholder="Ex: Rue de la République" required>
+        <label for="localisation" class="form-label">Arrondissement de Paris (requis)</label>
+        <select name="localisation" class="form-select" id="localisation" required>
+          <option value="">Sélectionner un arrondissement</option>
+          <option value="75001">Paris 1er</option>
+          <option value="75002">Paris 2e</option>
+          <option value="75003">Paris 3e</option>
+          <option value="75004">Paris 4e</option>
+          <option value="75005">Paris 5e</option>
+          <option value="75006">Paris 6e</option>
+          <option value="75007">Paris 7e</option>
+          <option value="75008">Paris 8e</option>
+          <option value="75009">Paris 9e</option>
+          <option value="75010">Paris 10e</option>
+          <option value="75011">Paris 11e</option>
+          <option value="75012">Paris 12e</option>
+          <option value="75013">Paris 13e</option>
+          <option value="75014">Paris 14e</option>
+          <option value="75015">Paris 15e</option>
+          <option value="75016">Paris 16e</option>
+          <option value="75017">Paris 17e</option>
+          <option value="75018">Paris 18e</option>
+          <option value="75019">Paris 19e</option>
+          <option value="75020">Paris 20e</option>
+        </select>
       </div>
       <button type="submit" class="btn btn-success">Envoyer</button>
     </form>
@@ -55,20 +77,47 @@
 
 {% block scripts %}
 <script>
-    function getLocation() {
+    // Arrondit la latitude/longitude à ~20m près
+    function roundCoord(coord) {
+        // 1 degré ≈ 111320 m, donc 0.00018 ≈ 20m
+        return Math.round(coord / 0.00018) * 0.00018;
+    }
+    function getRoundedLocation() {
         const message = document.getElementById('location-message');
-        if (navigator.geolocation) {
-            message.textContent = 'Recherche de votre position...';
-            navigator.geolocation.getCurrentPosition(function(position) {
-                document.getElementById('latitude').value = position.coords.latitude;
-                document.getElementById('longitude').value = position.coords.longitude;
-                message.textContent = 'Position détectée !';
-            }, function(error) {
-                message.textContent = "Impossible d'obtenir la position : " + error.message + ". Veuillez entrer manuellement les coordonnées.";
-            });
-        } else {
+        if (!navigator.geolocation) {
             message.textContent = "La géolocalisation n'est pas supportée par ce navigateur.";
+            return;
         }
+        message.textContent = 'Recherche de votre position...';
+        navigator.geolocation.getCurrentPosition(
+            function(position) {
+                const lat = roundCoord(position.coords.latitude);
+                const lng = roundCoord(position.coords.longitude);
+                document.getElementById('latitude').value = lat;
+                document.getElementById('longitude').value = lng;
+                message.textContent = `Position arrondie à 20m : ${lat}, ${lng}`;
+            },
+            function(error) {
+                let msg;
+                switch(error.code) {
+                    case error.PERMISSION_DENIED:
+                        msg = "Autorisation de localisation refusée. Veuillez accepter ou remplir manuellement.";
+                        break;
+                    case error.POSITION_UNAVAILABLE:
+                        msg = "Position non disponible. Essayez sur un autre appareil.";
+                        break;
+                    case error.TIMEOUT:
+                        msg = "Délai dépassé. Réessayez.";
+                        break;
+                    default:
+                        msg = "Erreur inconnue. Veuillez remplir manuellement.";
+                }
+                message.textContent = msg;
+                // Affiche aussi l'erreur dans la console pour debug
+                console.error('Erreur géolocalisation :', error);
+            },
+            { enableHighAccuracy: true, timeout: 10000, maximumAge: 0 }
+        );
     }
 </script>
 {% endblock %}

@@ -31,11 +31,14 @@
       <div class="card shadow-sm mb-3">
         <div class="card-body text-center">
           <h5 class="card-title">Images vides</h5>
-          <p class="display-6 fw-bold text-info">{{ vides }}</p>
+          <p class="display-6 fw-bold text-success">{{ vides }}</p>
         </div>
       </div>
     </div>
   </div>
+  {% if total_images == 0 %}
+  <div class="alert alert-warning text-center">Aucune image n'a encore été ajoutée. Ajoutez une image pour voir les statistiques.</div>
+  {% endif %}
   <div class="mb-4 text-center">
     <h4 class="mb-3">Répartition des annotations</h4>
     <img src="data:image/png;base64,{{ img_base64 }}" alt="Graphique annotations" class="img-fluid rounded shadow" style="max-width: 400px;">
@@ -46,4 +49,4 @@
     <a href="/" class="btn btn-secondary">Retour à l'accueil</a>
   </div>
 </div>
-{% endblock %} 
+{% endblock %}

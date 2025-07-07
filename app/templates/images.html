@@ -19,6 +19,8 @@
         <th>Image</th>
         <th>Date</th>
         <th>Annotation</th>
+        <th>Latitude</th>
+        <th>Longitude</th>
         <th>Actions</th>
       </tr>
     </thead>
@@ -28,6 +30,8 @@
         <td><img src="{{ url_for('static', filename='uploads/' + img.filename) }}" style="max-width:100px;"></td>
         <td>{{ img.upload_date.strftime('%Y-%m-%d %H:%M') }}</td>
         <td>{{ img.annotation if img.annotation else 'Non annotée' }}</td>
+        <td>{{ img.latitude if img.latitude else '-' }}</td>
+        <td>{{ img.longitude if img.longitude else '-' }}</td>
         <td>
           <form method="POST" action="/upload" style="display:inline-block;">
             <input type="hidden" name="filename" value="{{ img.filename }}">
@@ -44,4 +48,4 @@
 <div class="d-flex justify-content-center mt-4">
   <a href="/" class="btn btn-secondary">Retour à l'accueil</a>
 </div>
-{% endblock %} 
+{% endblock %}
